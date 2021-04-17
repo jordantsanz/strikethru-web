@@ -35,7 +35,7 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-function Basic(props) {
+function FileUpload(props) {
   const dispatch = useDispatch();
   const {
     acceptedFiles, getRootProps, getInputProps,
@@ -85,43 +85,4 @@ function Basic(props) {
     </section>
   );
 }
-
-// class FileUpload extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       selectedFile: '',
-//       docs: {
-//         uri: '',
-//       },
-//     };
-//   }
-
-//     onChangeHandler = (event) => {
-//       console.log('event', event.target.files[0]);
-//       this.setState({
-//         selectedFile: event.target.files[0],
-//       });
-//     }
-
-//     logError = (e) => {
-//       console.log('error: ', e);
-//     }
-
-//     render() {
-//       return (
-//         <div>
-//           <input type="file" onChange={this.onChangeHandler} />
-//           <button type="button" onClick={this.uploadFile}>Upload</button>
-//         </div>
-//       );
-//     }
-// }
-
-// function mapStateToProps(state) {
-//   return {
-//     file: state.file,
-//   };
-// }
-// export default connect(mapStateToProps, { sendFile })(FileUpload);
-export default Basic;
+export default FileUpload;
