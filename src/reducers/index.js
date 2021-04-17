@@ -2,10 +2,10 @@
 // this defines what your store state will look like
 import { combineReducers } from 'redux';
 
-import Reducer from './reducer';
+import UserReducer from './UserReducer';
 
 const rootReducer = combineReducers({
-  reducer: Reducer,
+  user: UserReducer,
 });
 
 export default rootReducer;
