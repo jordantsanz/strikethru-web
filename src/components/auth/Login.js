@@ -21,7 +21,7 @@ class Login extends Component {
     render() {
       return (
         <div>
-          <button type="button" onClick={this.tryLogin}>Login</button>
+          <button className="nav-button" id="last-nav-button" type="button" onClick={this.tryLogin}>log in</button>
         </div>
       );
     }

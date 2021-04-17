@@ -1,26 +1,25 @@
+/* eslint-disable no-const-assign */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prefer-stateless-function */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 // import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendFile } from '../../actions';
 
 const baseStyle = {
-  flex: 1,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '20px',
-  borderWidth: 2,
-  borderRadius: 2,
-  borderColor: '#eeeeee',
-  borderStyle: 'dashed',
-  backgroundColor: '#fafafa',
-  color: '#bdbdbd',
   outline: 'none',
+  width: '592px',
   transition: 'border .24s ease-in-out',
+  border: '1px solid #F2F2F2',
+  boxSizing: 'border-box',
+  borderRadius: '30px',
+  height: '360px',
 };
 
 const activeStyle = {
@@ -37,13 +36,23 @@ const rejectStyle = {
 
 function FileUpload(props) {
   const dispatch = useDispatch();
+  const [myFiles, setMyFiles] = useState([]);
+  const username = useSelector((state) => state.user.username);
+
+  // drops file
+  const onDrop = useCallback((acceptedFiles) => {
+    setMyFiles([...myFiles, ...acceptedFiles]);
+  }, [myFiles]);
+
+  // gets dropzone
   const {
-    acceptedFiles, getRootProps, getInputProps,
+    getRootProps, getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject,
-  } = useDropzone({ maxFiles: 1, accept: '.txt, .doc, .docx' });
+  } = useDropzone({ onDrop, maxFiles: 1, accept: '.txt, .doc, .docx' });
 
+  // style
   const style = useMemo(() => ({
     ...baseStyle,
     ...(isDragActive ? activeStyle : {}),
@@ -55,33 +64,41 @@ function FileUpload(props) {
     isDragAccept,
   ]);
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
-
-  const username = useSelector((state) => state.user.username);
-  console.log('usernam!', username);
-
+  // uploads file
   const upload = () => {
     console.log('uploading');
     const data = new FormData();
-    data.append('file', acceptedFiles[0]);
+    data.append('file', myFiles[0]);
     dispatch(sendFile(data, username));
   };
 
+  // removes file
+  const removeFile = () => {
+    setMyFiles([]);
+  };
+
+  if (myFiles.length === 0) {
+    return (
+      <section className="container">
+        <div {...getRootProps({ className: 'dropzone', style })}>
+          <input {...getInputProps()} />
+          <div className="drag-and-drop">drag and drop</div>
+          <div className="or">or</div>
+          <div className="nav-button outline upload-from-computer">upload from computer</div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="container">
-      <div {...getRootProps({ className: 'dropzone', style })}>
-        <input {...getInputProps()} />
-        <p>Drag drop some files here, or click to select files</p>
+      <div className="base-style">
+        <div className="ready-to-strike">Ready to strikethru?</div>
+        <div className="filename">{myFiles[0].name}</div>
+        <div className="base-buttons">
+          <div className="nav-button outline margin-bottom" onClick={upload}>let&apos;s do this</div>
+          <div className="nav-button outline" onClick={removeFile}>change file</div>
+        </div>
       </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>{files}</ul>
-      </aside>
-      <button type="button" onClick={upload}>upload</button>
     </section>
   );
 }

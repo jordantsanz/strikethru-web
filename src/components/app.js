@@ -1,20 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Home from './Home';
+import CensorToolsScreen from './screens/CensorToolsScreen';
+import FileUploadScreen from './screens/FileUploadScreen';
+import NavBar from './NavBar';
+import Home from './screens/Home';
 
 const App = (props) => {
   return (
     <Router>
+      <NavBar />
       <Route render={({ location }) => (
         <TransitionGroup>
           <CSSTransition
             key={location.key}
             timeout={300}
-            classNames="fade"
+            classNames="page"
           >
             <Switch location={location}>
               <Route exact path="/" component={Home} />
+              <Route path="/upload" component={FileUploadScreen} />
+              <Route path="/tools" component={CensorToolsScreen} />
             </Switch>
           </CSSTransition>
         </TransitionGroup>

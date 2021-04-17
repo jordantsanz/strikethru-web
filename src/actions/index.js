@@ -29,21 +29,6 @@ export function logOutUser() {
   };
 }
 
-export function sendFile(file, username) {
-  return (dispatch) => {
-    console.log('???/');
-    console.log(username);
-    axios.post(`${ROOT_URL}/text/${username}`, file)
-      .then((result) => {
-        console.log('result', result);
-        dispatch({ type: ActionTypes.UPLOAD_FILE, payload: result.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-}
-
 export function processText(filename, username) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/upload/${username}`, { filename })
@@ -52,6 +37,22 @@ export function processText(filename, username) {
         dispatch({ type: ActionTypes.PROCESS_TEXT, payload: result.data });
       })
 
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export function sendFile(file, username) {
+  return (dispatch) => {
+    console.log('???/');
+    console.log(username);
+    axios.post(`${ROOT_URL}/text/${username}`, file)
+      .then((result) => {
+        console.log('result', result);
+        dispatch({ type: ActionTypes.UPLOAD_FILE, payload: result.data });
+        processText(result.data, username);
+      })
       .catch((error) => {
         console.log(error);
       });
