@@ -1,1 +1,1 @@
-# hackdartmouth
+# strikethru-web
