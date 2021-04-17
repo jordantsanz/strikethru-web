@@ -27,13 +27,12 @@ export function logOutUser() {
   };
 }
 
-export function sendFile(file) {
+export function sendFile(file, username) {
   return (dispatch) => {
-    axios.post(ROOT_URL, file)
+    axios.post(`${ROOT_URL}/text/${username}`, file)
       .then((result) => {
         dispatch({ type: ActionTypes.FILE_UPLOAD, payload: result });
       })
-
       .catch((error) => {
         console.log(error);
       });
