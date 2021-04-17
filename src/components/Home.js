@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Login from './auth/Login';
 import Logout from './auth/Logout';
-import FileUpload from './FileUpload';
+import FileUpload from './file/FileUpload';
 
 class Home extends Component {
   render() {
@@ -12,7 +12,7 @@ class Home extends Component {
       <div className="main-container">
         <Login />
         <Logout />
-        <div>{this.props.user.displayName}</div>
+        <div>{this.props.name}</div>
         <FileUpload />
       </div>
     );
@@ -21,7 +21,8 @@ class Home extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    user: reduxState.user,
+    username: reduxState.user.username,
+    name: reduxState.user.name,
   };
 }
 
