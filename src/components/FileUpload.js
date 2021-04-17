@@ -27,7 +27,7 @@ class FileUpload extends Component {
         console.log(this.state.selectedFile);
         const data = new FormData();
         data.append('file', this.state.selectedFile);
-        // this.props.sendFile(data);
+        this.props.sendFile(data, 'user');
       }
     }
 
