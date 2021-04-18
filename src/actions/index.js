@@ -40,10 +40,12 @@ export function logOutUser() {
 }
 
 export function processText(filename, username) {
+  console.log('filename', filename);
+
   return (dispatch) => {
     axios.post(`${ROOT_URL}/text/${username}`, { filename })
       .then((result) => {
-        console.log('result', result);
+        console.log('result of process', result);
         dispatch({ type: ActionTypes.PROCESS_TEXT, payload: result.data });
       })
 
@@ -55,10 +57,12 @@ export function processText(filename, username) {
 
 export function sendFile(file, username) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/upload/${username}`, file)
+    axios.post(`${ROOT_URL}/upload`, file)
       .then((result) => {
-        dispatch({ type: ActionTypes.UPLOAD_FILE, payload: result.data });
-        processText(result.data, username);
+        console.log('result here', result);
+        axios.post(`${ROOT_URL}/text/${username}`, { filename: result.data, countFlag: 'yes' }).then((res) => {
+          dispatch({ type: ActionTypes.PROCESS_TEXT, payload: res.data });
+        });
       })
       .catch((error) => {
         console.log(error);

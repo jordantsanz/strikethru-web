@@ -81,12 +81,16 @@ class CensorToolsScreen extends Component {
   }
 
   changeShowing = () => {
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        showing: !prevState.showing,
-      };
-    });
+    if (this.props.username === '') {
+      this.tryLogin();
+    } else {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          showing: !prevState.showing,
+        };
+      });
+    }
   }
 
   determineShowing = () => {
