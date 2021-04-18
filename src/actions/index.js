@@ -59,7 +59,6 @@ export function sendFile(file, username) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/upload`, file)
       .then((result) => {
-        console.log('result here', result);
         axios.post(`${ROOT_URL}/text/${username}`, { filename: result.data, countFlag: 'yes' }).then((res) => {
           dispatch({ type: ActionTypes.PROCESS_TEXT, payload: res.data });
         });

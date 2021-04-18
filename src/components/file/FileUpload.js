@@ -6,7 +6,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 // import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import firebase from 'firebase';
 import { sendFile, logInUser } from '../../actions';
 
@@ -38,6 +38,7 @@ const rejectStyle = {
 function FileUpload(props) {
   const dispatch = useDispatch();
   const [myFiles, setMyFiles] = useState([]);
+  const [showFile, setShowFile] = useState(false);
   const username = useSelector((state) => state.user.username);
 
   // drops file
@@ -97,7 +98,54 @@ function FileUpload(props) {
   const removeFile = () => {
     setMyFiles([]);
   };
-
+  if (props.file && showFile) {
+    const codes = props.file.split('.txt')[1].split('\n');
+    return (
+      <section className="container">
+        <div className="base-style">
+          <div className="ready-to-strike">Success</div>
+          {codes.map((code) => {
+            const info = code.split(',');
+            if (info.length === 2) {
+              return (
+                <div key={info[0]}>{info[1]} {info[0]} words found.</div>
+              );
+            }
+            return null;
+          })}
+          <div className="base-buttons">
+            <div className="nav-button outline margin-bottom" onClick={() => setShowFile(!showFile)}>Hide</div>
+          </div>
+        </div>
+        <div className="filename">{myFiles[0].name}</div>
+        <div>
+          {props.file.split('processed')[0]}
+        </div>
+      </section>
+    );
+  }
+  if (props.file) {
+    const codes = props.file.split('.txt')[1].split('\n');
+    return (
+      <section className="container">
+        <div className="base-style">
+          <div className="ready-to-strike">Success</div>
+          {codes.map((code) => {
+            const info = code.split(',');
+            if (info.length === 2) {
+              return (
+                <div key={info[0]}>{info[1]} {info[0]} words found.</div>
+              );
+            }
+            return null;
+          })}
+          <div className="base-buttons">
+            <div className="nav-button outline margin-bottom" onClick={() => setShowFile(!showFile)}>View</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   if (myFiles.length === 0) {
     return (
       <section className="container">
@@ -123,4 +171,10 @@ function FileUpload(props) {
     </section>
   );
 }
-export default FileUpload;
+function mapStateToProps(state) {
+  return {
+    file: state.file.file,
+  };
+}
+
+export default connect(mapStateToProps, null)(FileUpload);
