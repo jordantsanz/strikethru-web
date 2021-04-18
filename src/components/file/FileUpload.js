@@ -150,7 +150,6 @@ function FileUpload(props) {
       </section>
     );
   }
-  // }
   if (props.file) {
     const codes = props.file.split('.txt')[1].split('\n');
     return (
