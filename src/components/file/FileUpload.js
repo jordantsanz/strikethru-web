@@ -143,7 +143,7 @@ function FileUpload(props) {
             <div className="nav-button outline margin-bottom-major" onClick={() => setShowFile(!showFile)}>Hide</div>
           </div>
         </div>
-        <div className="filename">{myFiles[0].name}</div>
+        <div className="filename-success">{myFiles[0].name}</div>
         <div className="success-words">
           {props.file.split('processed')[0]}
         </div>
