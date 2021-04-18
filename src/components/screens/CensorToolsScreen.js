@@ -108,10 +108,10 @@ class CensorToolsScreen extends Component {
       <div className="screen-main">
         <NavBar />
         <div className="background" />
-        <div className="title">Strikethru Tools</div>
-        <p className="smaller-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat, nunc sit amet venenatis fringilla,
-          libero nisi faucibus dui, eget suscipit enim augue quis sapien.
-          Vivamus scelerisque risus sed risus euismod vehicula at a ipsum. Donec porttitor velit quis felis vestibulum, non rhoncus libero facilisis.
+        <div className="title">Chrome Extension</div>
+        <p className="smaller-text">Take control of your internet experience with our Chrome extension that will warn you if a page contains any harmful language that you’ve
+          instructed it to look out for.
+          Think of it like a live content warning for the web! If the we find any of the words in a word set you’ve selected, we’ll blur it out on the page unless you choose to reveal them.
         </p>
         <button type="button" className="nav-button outline chrome">Get the Chrome extension</button>
         <div className="title">Word Sets</div>
