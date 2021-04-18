@@ -11,7 +11,7 @@ const UserReducer = (state = initialState, action) => {
     case ActionTypes.UPLOAD_FILE:
       return { ...state, filename: action.payload };
     case ActionTypes.PROCESS_TEXT:
-      return { file: action.payload.file, filename: action.payload.filename };
+      return { file: action.payload };
     default:
       return {
         ...state,
