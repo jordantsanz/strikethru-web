@@ -1,6 +1,6 @@
 <img width="425" alt="readme-icon(1)" src="https://user-images.githubusercontent.com/56173614/115152627-d1500c00-a03f-11eb-9895-20785076b3e7.png">
 
-# Web App
+# Strikethru Web App
 
 It's no secret that the internet is far from a safe space. There's harmful language - whether it be used "jokingly" or maliciously - that can be triggering for individuals of all identities. And, unfortunately, many websites and social media platforms do not give users the ability to censor content for themselves. This is where strikethru comes in.
 
