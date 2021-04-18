@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { addToPreferences } from '../../actions';
+import { addToPreferences, logInUser } from '../../actions';
 
 class CensorToolsScreen extends Component {
   constructor(props) {
@@ -12,6 +13,21 @@ class CensorToolsScreen extends Component {
       input: '',
       showing: false,
     };
+  }
+
+  tryLogin = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      const { credential } = result;
+      const token = credential.accessToken;
+      const { user } = result;
+      console.log(user, token);
+      this.props.logInUser(user, token);
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
   }
 
   addPref = (prefLetter) => {
@@ -23,6 +39,8 @@ class CensorToolsScreen extends Component {
         list.splice(list.indexOf(prefLetter), 1);
       }
       this.props.addToPreferences(this.props.username, list, this.props.chosenFilters);
+    } else {
+      this.tryLogin();
     }
   }
 
@@ -158,4 +176,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { addToPreferences })(CensorToolsScreen);
+export default connect(mapStateToProps, { addToPreferences, logInUser })(CensorToolsScreen);

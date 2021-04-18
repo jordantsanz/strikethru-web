@@ -7,7 +7,8 @@ import React, { useMemo, useState, useCallback } from 'react';
 // import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendFile } from '../../actions';
+import firebase from 'firebase';
+import { sendFile, logInUser } from '../../actions';
 
 const baseStyle = {
   display: 'flex',
@@ -64,12 +65,32 @@ function FileUpload(props) {
     isDragAccept,
   ]);
 
+  const tryLogin = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      const { credential } = result;
+      const token = credential.accessToken;
+      const { user } = result;
+      console.log(user, token);
+      dispatch(logInUser(user, token));
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+  };
+
   // uploads file
   const upload = () => {
-    console.log('uploading');
-    const data = new FormData();
-    data.append('file', myFiles[0]);
-    dispatch(sendFile(data, username));
+    console.log('username', username);
+    if (username !== '') {
+      console.log('uploading');
+      const data = new FormData();
+      data.append('file', myFiles[0]);
+      dispatch(sendFile(data, username));
+    } else {
+      tryLogin();
+    }
   };
 
   // removes file
