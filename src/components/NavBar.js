@@ -19,10 +19,7 @@ class NavBar extends Component {
     render() {
       return (
         <div className="navbar-main">
-          <div className="logo">
-            <a className="link" href="#">
-              <span data-content="strikethru">strikethru</span>
-            </a>
+          <div className="logo">strikethru
             <img className="import-logo" src={logo} alt="white rainbow-shaped logo" />
           </div>
           <div className="nav-other-buttons">
