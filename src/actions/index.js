@@ -7,6 +7,7 @@ export const ActionTypes = {
   LOG_OUT: 'LOG_OUT',
   UPLOAD_FILE: 'UPLOAD_FILE',
   PROCESS_TEXT: 'PROCESS_TEXT',
+  UPDATE_PREFS: 'UPDATE_PREFS',
 };
 
 export function logInUser(userProfileObj, token) {
@@ -14,7 +15,16 @@ export function logInUser(userProfileObj, token) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/user/${username}`, { name: userProfileObj.displayName, username })
       .then((result) => {
-        dispatch({ type: ActionTypes.LOG_IN, payload: { user: userProfileObj, token } });
+        console.log('userresult', result);
+        dispatch({
+          type: ActionTypes.LOG_IN,
+          payload: {
+            username,
+            name: result.data.result.name,
+            filterTypes: result.data.result.filterTypes === undefined ? '' : result.data.result.filterTypes,
+            chosenFilter: result.data.result.chosenFilter,
+          },
+        });
       })
 
       .catch((error) => {
@@ -31,7 +41,7 @@ export function logOutUser() {
 
 export function processText(filename, username) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/upload/${username}`, { filename })
+    axios.post(`${ROOT_URL}/text/${username}`, { filename })
       .then((result) => {
         console.log('result', result);
         dispatch({ type: ActionTypes.PROCESS_TEXT, payload: result.data });
@@ -45,14 +55,49 @@ export function processText(filename, username) {
 
 export function sendFile(file, username) {
   return (dispatch) => {
-    console.log('???/');
-    console.log(username);
-    axios.post(`${ROOT_URL}/text/${username}`, file)
+    axios.post(`${ROOT_URL}/upload/${username}`, file)
       .then((result) => {
-        console.log('result', result);
         dispatch({ type: ActionTypes.UPLOAD_FILE, payload: result.data });
         processText(result.data, username);
       })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export function addToPreferences(username, listOfPreferencesFilter, listOfPreferencesChosen) {
+  return (dispatch) => {
+    // create preferences string
+    console.log('listprefs', listOfPreferencesFilter);
+    let prefStringFilter = '';
+    for (let i = 0; i < listOfPreferencesFilter.length - 1; i += 1) {
+      prefStringFilter += listOfPreferencesFilter[i];
+      prefStringFilter += ',';
+    }
+    prefStringFilter += listOfPreferencesFilter[listOfPreferencesFilter.length - 1];
+
+    let prefStringChosen = '';
+    if (listOfPreferencesChosen === undefined || listOfPreferencesChosen === null || listOfPreferencesChosen.length === 0) {
+      prefStringChosen = 'none';
+    } else {
+      for (let i = 0; i < listOfPreferencesChosen.length - 1; i += 1) {
+        prefStringChosen += listOfPreferencesChosen[i];
+        prefStringChosen += ',';
+      }
+      prefStringChosen += listOfPreferencesChosen[listOfPreferencesChosen.length - 1];
+    }
+
+    console.log('username', username);
+    console.log('chosenfilter', prefStringChosen);
+    console.log('filterlist', prefStringFilter);
+
+    axios.put(`${ROOT_URL}/user/${username}`, { processType: 'word', filterTypes: prefStringFilter, chosenFilter: prefStringChosen })
+      .then((result) => {
+        console.log('pref result', result);
+        dispatch({ type: ActionTypes.UPDATE_PREFS, payload: result.data.result });
+      })
+
       .catch((error) => {
         console.log(error);
       });

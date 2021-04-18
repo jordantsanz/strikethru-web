@@ -33,7 +33,7 @@ class Home extends Component {
               suscipit enim augue quis sapien. Vivamus scelerisque risus sed risus euismod vehicula at a ipsum. Donec porttitor
               velit quis felis vestibulum, non rhoncus libero facilisis.  Statistics about slurs?
             </div>
-            <button type="button" className="nav-button outline">View the Chrome extension</button>
+            <button type="button" className="nav-button outline margin-top">View the Chrome extension</button>
           </div>
         </section>
       </div>

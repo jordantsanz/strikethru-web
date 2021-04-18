@@ -52,6 +52,7 @@ line-height: 75px;
 
 
 color: #F2F2F2;
+margin-left: 56px;
 }
 
 .navbar-main{
@@ -271,10 +272,170 @@ color: #F2F2F2;
     margin-bottom: 40px;
 }
 
+#add-custom-words{
+    margin-top: 105px;
+    margin-bottom: 8px;
+}
+
+.custom-input{
+    margin-bottom: 24px;
+}
+
+.chosen-words-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.words-list{
+    margin-bottom: 50px;
+    transition: 200ms ease all;
+    height: fit-content;
+}
+
+#add-custom-words-subtext{
+    margin-bottom: 24px;
+}
+
+.hidden-word{
+    height: 0px;
+    opacity: 0;
+}
+
+.visible-word{
+    height: fit-content;
+    opacity: 1;
+}
+
+.show-all-words{
+
+font-family: $averia;
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 17px;
+text-align: center;
+
+color: #F2F2F2;
+
+}
+
+.show-all-words:hover{
+    cursor: pointer;
+}
+
+.custom-word-input{
+    border: 2px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 90px 0px 0px 90px;
+    position: absolute;
+    width: 394px;
+    height: 40px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    background-color: transparent;
+    color: #F2F2F2;
+    font-family: $averia;
+    padding-left: 22px;
+}
+
+.custom-word-input::placeholder{
+    color: #f2f2f2;
+}
+
+.input-button-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    left: 392px;
+    width: 94px;
+    height: 40px;
+    position: relative;
+  }
+  
+  #button-rounded{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  position: absolute;
+  width: 94px;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: 0px 90px 90px 0px;
+  }
+
+  #button-rounded {
+    font-family: $averia;
+    border: none;
+    background: none;
+    outline: none;
+    color: black;
+    mix-blend-mode: screen;
+  }
+  
+  #button-rounded::before {
+    position: absolute;
+    font-family: $averia;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #F2F2F2;;
+    content: '';
+    mix-blend-mode: color-burn;
+    border-radius: 0px 90px 90px 0px;
+  }
+
+  .custom-input{
+      position: relative;
+      height: 40px;
+      margin-left: 55px;
+
+  }
+
+  #button-rounded:hover{
+      cursor: pointer;
+  }
+
+
+  .words-item{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 328px;
+      margin-top: 24px;
+      transition: 200ms ease all;
+  }
+
+  .word{
+
+font-family: $averia;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 17px;
+transition: 200ms ease all;
+
+color: #F2F2F2;
+  }
+
+  .remove-button{
+      transition: 200ms ease all;
+  }
 
 /******************************** HOME ******************/
 .section-1, .section-2{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
