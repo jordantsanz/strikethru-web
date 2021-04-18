@@ -1,10 +1,19 @@
 <img width="425" alt="readme-icon(1)" src="https://user-images.githubusercontent.com/56173614/115152627-d1500c00-a03f-11eb-9895-20785076b3e7.png">
 
+# Strikethru - Web App
 It's no secret that the internet is far from a safe space. There's harmful language - whether it be used "jokingly" or maliciously - that can be triggering for individuals of all identities. And, unfortunately, many websites and social media platforms do not give users the ability to censor content for themselves. This is where strikethru comes in.
 
 **strikethru** is a Web App and Chrome extension that uses HTML scraping to find harmful words on a website and hides them from the user. Think of it like a content warning maker for the internet! The user can pick from different categories of potential trigger words and even add their own.
 
 Our website also has a file upload tool that can filter an uploaded .txt file and output the same document with trigger words edited with asterisks. They can also choose to hide entire sentences that qualify sentiments in text, hiding entire sentences that are recognized as hate speech.
+
+### The Web App
+
+**strikethru** is a React/Redux web app, utilizing GoogleOAuth and HTML/SCSS/Javascript.
+
+**strikethru** allows users to sign on with their Google accounts with GoogleOAuth. After this, users can add and remove word sets from their profile, with each word set holding a category of derogatory language, such as homophobic, racist, or sexist language. Users also have the option to add custom words into their set of words. 
+
+**strikethru** also can scan files to detect hateful language. A user can submit a file and check it against their selected word sets, then seeing the counts of how much hateful language was in the file. Additionally, the text file appears with hateful language having asterisks within it. Finally, **strikethru** also analyzes text files by sentence, scanning for sentences containing hate speech or that are hateful. These sentences are then replaced in the shown text file. 
 
 ### How we built it
 This API was built with two core functions in mind: user storage and text processing. To accomplish the former, we used Google's Cloud Firestore database to store collections of registered users. We implemented basic CRUD functionality for handling users and their stored preferences. When it comes to text processing, we offer users multiple different options for analysis, of which those preferences are stored in the firestore's user collection. We chose to allow users to process their text by either word or sentence, each method lending towards a different overall goal. Our text method consisted of compiling a library of known slurs and/or triggers and using it to process texts for potential outright triggers. Our sentence method utilizes the hatesonar library in python as an NLP hate-speech classifier to make predictions sentence by sentence.
