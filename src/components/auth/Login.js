@@ -11,6 +11,7 @@ class Login extends Component {
         const { credential } = result;
         const token = credential.accessToken;
         const { user } = result;
+        console.log('this is the user', user);
         this.props.logInUser(user, token);
       }).catch((error) => {
         const errorCode = error.code;
