@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unreachable */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-const-assign */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -10,7 +12,7 @@ import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import firebase from 'firebase';
 import $ from 'jquery';
-import { sendFile, logInUser, addToPreferences } from '../../actions';
+import { sendFile, logInUser } from '../../actions';
 
 const baseStyle = {
   display: 'flex',
@@ -42,8 +44,6 @@ function FileUpload(props) {
   const [myFiles, setMyFiles] = useState([]);
   const [showFile, setShowFile] = useState(false);
   const username = useSelector((state) => state.user.username);
-  const filterTypes = useSelector((state) => state.user.filterTypes);
-  const chosenFilter = useSelector((state) => state.user.chosenFilter);
 
   // drops file
   const onDrop = useCallback((acceptedFiles) => {
@@ -96,7 +96,6 @@ function FileUpload(props) {
       } else {
         type = 'word';
       }
-      dispatch(addToPreferences(username, filterTypes, chosenFilter));
       const data = new FormData();
       data.append('file', myFiles[0]);
       dispatch(sendFile(data, username, type));
@@ -124,47 +123,53 @@ function FileUpload(props) {
   }
   if (props.file && showFile) {
     const codes = props.file.split('.txt')[1].split('\n');
+
     return (
       <section className="container">
-        <div className="base-style">
-          <div className="ready-to-strike">Success</div>
-          {codes.map((code) => {
-            const info = code.split(',');
-            if (info.length === 2) {
-              return (
-                <div key={info[0]}>{info[1]} {info[0]} words found.</div>
-              );
-            }
-            return null;
-          })}
+        <div className="base-style-variant success-group">
+          <div className="ready-to-strike success-title">Success</div>
+          <div className="code-results">
+            {codes.map((code) => {
+              const info = code.split(',');
+              if (info.length === 2) {
+                return (
+                  <div className="code-success" key={info[0]}>{info[1]} {info[0]} words found.</div>
+                );
+              }
+              return null;
+            })}
+          </div>
           <div className="base-buttons">
-            <div className="nav-button outline margin-bottom" onClick={() => setShowFile(!showFile)}>Hide</div>
+            <div className="nav-button outline margin-bottom-major" onClick={() => setShowFile(!showFile)}>Hide</div>
           </div>
         </div>
         <div className="filename">{myFiles[0].name}</div>
-        <div>
+        <div className="success-words">
           {props.file.split('processed')[0]}
         </div>
       </section>
     );
   }
+  // }
   if (props.file) {
     const codes = props.file.split('.txt')[1].split('\n');
     return (
       <section className="container">
-        <div className="base-style">
-          <div className="ready-to-strike">Success</div>
-          {codes.map((code) => {
-            const info = code.split(',');
-            if (info.length === 2) {
-              return (
-                <div key={info[0]}>{info[1]} {info[0]} words found.</div>
-              );
-            }
-            return null;
-          })}
+        <div className="base-style-variant success-group">
+          <div className="ready-to-strike success-title">Success</div>
+          <div className="code-results">
+            {codes.map((code) => {
+              const info = code.split(',');
+              if (info.length === 2) {
+                return (
+                  <div className="code-success" key={info[0]}>{info[1]} {info[0]} words found.</div>
+                );
+              }
+              return null;
+            })}
+          </div>
           <div className="base-buttons">
-            <div className="nav-button outline margin-bottom" onClick={() => setShowFile(!showFile)}>View</div>
+            <div className="nav-button outline margin-bottom-major" onClick={() => setShowFile(!showFile)}>View</div>
           </div>
         </div>
       </section>

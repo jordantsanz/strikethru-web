@@ -11,7 +11,8 @@ export const ActionTypes = {
 };
 
 export function logInUser(userProfileObj, token) {
-  const username = userProfileObj.uid;
+  const usernameNotSplit = userProfileObj.email;
+  const username = usernameNotSplit.split('@')[0];
   return (dispatch) => {
     axios.post(`${ROOT_URL}/user/${username}`, { name: userProfileObj.displayName, username })
       .then((result) => {
@@ -59,7 +60,7 @@ export function sendFile(file, username, type) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/upload`, file)
       .then((result) => {
-        axios.post(`${ROOT_URL}/text/${username}`, { filename: result.data, countFlag: 'yes' }).then((res) => {
+        axios.post(`${ROOT_URL}/text/${username}`, { filename: result.data, countFlag: 'yes', processText: type }).then((res) => {
           dispatch({ type: ActionTypes.PROCESS_TEXT, payload: res.data });
         });
       })
