@@ -279,7 +279,7 @@ line-height: 30px;
 text-align: center;
 
 color: #F2F2F2;
-margin-top: 90px;
+margin-top: 48px;
 }
 
 .base-style{
@@ -604,6 +604,31 @@ margin-bottom: 8px;
     }
   }
 
+  .slider-text{
+    font-family: $averia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #F2F2F2;
+  }
+
+  .word-mode{
+      margin-right: 24px;
+
+  }
+  .sentence-mode{
+      margin-left: 24px;
+  }
+
+  .switch-row{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      margin-left: 20px;
+  }
 
 
 .switch {

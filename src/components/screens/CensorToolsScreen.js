@@ -78,6 +78,8 @@ class CensorToolsScreen extends Component {
           input: '',
         });
       }
+    } else if (this.props.username === '') {
+      this.tryLogin();
     }
   }
 
@@ -135,12 +137,12 @@ class CensorToolsScreen extends Component {
             <div className="set">
               <div className="set-title">Sexist</div>
               <div className="set-wordset">Word Set</div>
-              <div className="nav-button outline add" onClick={() => { this.addPref('s'); }}>{ this.props.filterTypes.includes('s') ? 'remove' : 'add'}</div>
+              <div className="nav-button outline" onClick={() => { this.addPref('s'); }}>{ this.props.filterTypes.includes('s') ? 'remove' : 'add'}</div>
             </div>
             <div className="set">
               <div className="set-title">Anti-Semetic</div>
               <div className="set-wordset">Word Set</div>
-              <div className="nav-button outline add" onClick={() => { this.addPref('a'); }}>{ this.props.filterTypes.includes('a') ? 'remove' : 'add'}</div>
+              <div className="nav-button outline" onClick={() => { this.addPref('a'); }}>{ this.props.filterTypes.includes('a') ? 'remove' : 'add'}</div>
             </div>
           </div>
         </div>

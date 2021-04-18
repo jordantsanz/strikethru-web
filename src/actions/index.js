@@ -55,7 +55,7 @@ export function processText(filename, username) {
   };
 }
 
-export function sendFile(file, username) {
+export function sendFile(file, username, type) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/upload`, file)
       .then((result) => {

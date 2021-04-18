@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-const-assign */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -8,7 +9,8 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import firebase from 'firebase';
-import { sendFile, logInUser } from '../../actions';
+import $ from 'jquery';
+import { sendFile, logInUser, addToPreferences } from '../../actions';
 
 const baseStyle = {
   display: 'flex',
@@ -40,6 +42,8 @@ function FileUpload(props) {
   const [myFiles, setMyFiles] = useState([]);
   const [showFile, setShowFile] = useState(false);
   const username = useSelector((state) => state.user.username);
+  const filterTypes = useSelector((state) => state.user.filterTypes);
+  const chosenFilter = useSelector((state) => state.user.chosenFilter);
 
   // drops file
   const onDrop = useCallback((acceptedFiles) => {
@@ -85,10 +89,17 @@ function FileUpload(props) {
   const upload = () => {
     console.log('username', username);
     if (username !== '') {
+      let type = 'word';
       console.log('uploading');
+      if ($('#toggle2').is(':checked')) {
+        type = 'sentence';
+      } else {
+        type = 'word';
+      }
+      dispatch(addToPreferences(username, filterTypes, chosenFilter));
       const data = new FormData();
       data.append('file', myFiles[0]);
-      dispatch(sendFile(data, username));
+      dispatch(sendFile(data, username, type));
     } else {
       tryLogin();
     }
@@ -165,6 +176,14 @@ function FileUpload(props) {
         <div className="base-style">
           <div className="ready-to-strike">Ready to strikethru?</div>
           <div className="filename">{myFiles[0].name}</div>
+          <div className="switch-row">
+            <div className="slider-text word-mode">word mode</div>
+            <label className="switch">
+              <input id="toggle2" type="checkbox" />
+              <span className="slider round" />
+            </label>
+            <div className="slider-text sentence-mode">sentence mode</div>
+          </div>
           <div className="base-buttons">
             <div className="nav-button outline margin-bottom" onClick={upload}>let&apos;s do this</div>
             <div className="nav-button outline" onClick={removeFile}>change file</div>
