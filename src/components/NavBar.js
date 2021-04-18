@@ -30,10 +30,10 @@ class NavBar extends Component {
               <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="home">home</span></a></div>
             </NavLink>
             <NavLink to="/tools">
-              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="censor tools">censor tools</span></a></div>
+              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="chrome extension">chrome extension</span></a></div>
             </NavLink>
             <NavLink to="/upload">
-              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="file upload">file upload</span></a></div>
+              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="document filter">document filter</span></a></div>
             </NavLink>
             {this.determineButton()}
           </div>

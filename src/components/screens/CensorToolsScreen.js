@@ -140,7 +140,7 @@ class CensorToolsScreen extends Component {
               <div className="nav-button outline" onClick={() => { this.addPref('s'); }}>{ this.props.filterTypes.includes('s') ? 'remove' : 'add'}</div>
             </div>
             <div className="set">
-              <div className="set-title">Anti-Semetic</div>
+              <div className="set-title">Anti-Semitic</div>
               <div className="set-wordset">Word Set</div>
               <div className="nav-button outline" onClick={() => { this.addPref('a'); }}>{ this.props.filterTypes.includes('a') ? 'remove' : 'add'}</div>
             </div>
@@ -148,7 +148,12 @@ class CensorToolsScreen extends Component {
         </div>
         <section className="chosen-words-section">
           <div className="title" id="add-custom-words">Add Custom Words</div>
-          <div className="smaller-text" id="add-custom-words-subtext">lorem lorem lorem</div>
+          <div className="smaller-text" id="add-custom-words-subtext">
+            While we love our extension, we know it isn’t perfect. Each person has their own set of trigger
+            words that they may want to hide. By adding these words below, we’ll include it in our list of
+            what we’re looking out for, warning you of their presence and blurring them out on the page.
+            To delete any of your current chosen words, click to show chosen words.
+          </div>
           <div className="custom-input">
             <input className="custom-word-input" placeholder="Input any word" onChange={(e) => { this.updateInput(e); }} />
             <div className="input-button-wrapper">
