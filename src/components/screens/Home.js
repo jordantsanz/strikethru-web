@@ -1,12 +1,15 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import NavBar from '../NavBar';
 
 class Home extends Component {
   render() {
     console.log(this.props.user);
     return (
       <div className="main-container">
+        <NavBar />
+        <div className="background" />
         <section className="section-1">
           <div className="purify">Purify the web.</div>
         </section>

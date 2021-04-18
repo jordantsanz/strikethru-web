@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -17,16 +18,16 @@ class NavBar extends Component {
     render() {
       return (
         <div className="navbar-main">
-          <div className="logo">strikethru</div>
+          <div className="logo"><a className="link" href="#"><span data-content="strikethru">strikethru</span></a></div>
           <div className="nav-other-buttons">
             <NavLink to="/">
-              <div className="nav-button nav-margin">home</div>
+              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="home">home</span></a></div>
             </NavLink>
             <NavLink to="/tools">
-              <div className="nav-button nav-margin">censor tools</div>
+              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="censor tools">censor tools</span></a></div>
             </NavLink>
             <NavLink to="/upload">
-              <div className="nav-button nav-margin">file upload</div>
+              <div className="nav-button nav-margin"><a href="#" className="link"><span data-content="file upload">file upload</span></a></div>
             </NavLink>
             {this.determineButton()}
           </div>

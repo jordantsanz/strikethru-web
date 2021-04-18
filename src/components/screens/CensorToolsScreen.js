@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import NavBar from '../NavBar';
 import { addToPreferences, logInUser } from '../../actions';
 
 class CensorToolsScreen extends Component {
@@ -103,6 +104,8 @@ class CensorToolsScreen extends Component {
   render() {
     return (
       <div className="screen-main">
+        <NavBar />
+        <div className="background" />
         <div className="title">Strikethru Tools</div>
         <p className="smaller-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat, nunc sit amet venenatis fringilla,
           libero nisi faucibus dui, eget suscipit enim augue quis sapien.

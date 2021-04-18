@@ -39,6 +39,7 @@ function FileUpload(props) {
   const dispatch = useDispatch();
   const [myFiles, setMyFiles] = useState([]);
   const username = useSelector((state) => state.user.username);
+  const [success, setSuccess] = useState(false);
 
   // drops file
   const onDrop = useCallback((acceptedFiles) => {
@@ -87,6 +88,7 @@ function FileUpload(props) {
       console.log('uploading');
       const data = new FormData();
       data.append('file', myFiles[0]);
+      setSuccess(true);
       dispatch(sendFile(data, username));
     } else {
       tryLogin();
@@ -98,29 +100,37 @@ function FileUpload(props) {
     setMyFiles([]);
   };
 
-  if (myFiles.length === 0) {
+  if (success) {
+    return (
+      <div className="container">
+        <div className="base-style" />
+      </div>
+    );
+  } else {
+    if (myFiles.length === 0) {
+      return (
+        <section className="container">
+          <div {...getRootProps({ className: 'dropzone', style })}>
+            <input {...getInputProps()} />
+            <div className="drag-and-drop">drag and drop</div>
+            <div className="or">or</div>
+            <div className="nav-button outline upload-from-computer">upload from computer</div>
+          </div>
+        </section>
+      );
+    }
     return (
       <section className="container">
-        <div {...getRootProps({ className: 'dropzone', style })}>
-          <input {...getInputProps()} />
-          <div className="drag-and-drop">drag and drop</div>
-          <div className="or">or</div>
-          <div className="nav-button outline upload-from-computer">upload from computer</div>
+        <div className="base-style">
+          <div className="ready-to-strike">Ready to strikethru?</div>
+          <div className="filename">{myFiles[0].name}</div>
+          <div className="base-buttons">
+            <div className="nav-button outline margin-bottom" onClick={upload}>let&apos;s do this</div>
+            <div className="nav-button outline" onClick={removeFile}>change file</div>
+          </div>
         </div>
       </section>
     );
   }
-  return (
-    <section className="container">
-      <div className="base-style">
-        <div className="ready-to-strike">Ready to strikethru?</div>
-        <div className="filename">{myFiles[0].name}</div>
-        <div className="base-buttons">
-          <div className="nav-button outline margin-bottom" onClick={upload}>let&apos;s do this</div>
-          <div className="nav-button outline" onClick={removeFile}>change file</div>
-        </div>
-      </div>
-    </section>
-  );
 }
 export default FileUpload;

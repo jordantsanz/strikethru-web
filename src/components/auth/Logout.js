@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -18,7 +19,7 @@ class Logout extends Component {
     render() {
       return (
         <div>
-          <button className="nav-button" id="last-nav-button" onClick={this.logout} type="button">log out</button>
+          <button className="nav-button" id="last-nav-button" onClick={this.logout} type="button"><a href="#" className="link"><span data-content="log out">log out</span></a></button>
         </div>
       );
     }

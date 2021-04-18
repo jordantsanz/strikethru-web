@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
@@ -21,7 +22,7 @@ class Login extends Component {
     render() {
       return (
         <div>
-          <button className="nav-button" id="last-nav-button" type="button" onClick={this.tryLogin}>log in</button>
+          <button className="nav-button" id="last-nav-button" type="button" onClick={this.tryLogin}><a href="#" className="link"><span data-content="log in">log in</span></a></button>
         </div>
       );
     }

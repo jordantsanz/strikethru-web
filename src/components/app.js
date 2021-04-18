@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import CensorToolsScreen from './screens/CensorToolsScreen';
 import FileUploadScreen from './screens/FileUploadScreen';
-import NavBar from './NavBar';
 import Home from './screens/Home';
 
 const App = (props) => {
   return (
     <Router>
-      <NavBar />
       <Route render={({ location }) => (
         <TransitionGroup>
           <CSSTransition
